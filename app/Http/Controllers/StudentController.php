@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use App\Services\HelperService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
 
 class StudentController extends Controller
@@ -47,7 +49,22 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'nama' => ['required', 'string', 'max:255'],
+            'jenis_kelamin' => ['required', 'in:m,f'],
+            'tanggal_lahir' => ['nullable', 'date'],
+            'nis' => ['nullable', 'string', 'max:255'],
+        ]);
+
+        $data['nama'] = Str::title(Str::lower($data['nama']));
+
+        try {
+            $student = Student::create($data);
+
+            return response()->json($this->helper->successWrapper('Simpan', "{$student->nama} berhasil disimpan", $student));
+        } catch (\Throwable $th) {
+            $this->helper->errorResponse($th);
+        }
     }
 
     /**

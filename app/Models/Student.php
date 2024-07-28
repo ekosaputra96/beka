@@ -9,4 +9,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Student extends Model
 {
     use HasFactory, AuditableTrait;
+
+    protected $fillable = [
+        'nama',
+        'jenis_kelamin',
+        'tanggal_lahir',
+        'nis'
+    ];
 }
