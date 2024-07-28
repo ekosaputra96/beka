@@ -43,6 +43,6 @@ const studentModalFooter = $("#student-modal-footer");
 
 $("#create-student").on("click", function () {
     studentModalLabel.text("Tambah Siswa");
-    studentModalFooter.text("Save");
+    studentModalFooter.text("Simpan");
     studentModal.modal("show");
 });
