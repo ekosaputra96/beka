@@ -17,7 +17,7 @@ class CreateStudentsTable extends Migration
             $table->id();
             $table->string('nama');
             $table->date('tanggal_lahir');
-            $table->string('nis', 15)->unique();
+            $table->string('nis', 15)->unique()->nullable();
             $table->enum('jenis_kelamin', ['m', 'f']);
             $table->auditable();
             $table->timestamps();

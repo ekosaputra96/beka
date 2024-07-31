@@ -18,11 +18,13 @@ $(document).ready(function () {
             {
                 data: "nama",
                 name: "nama",
+                defaultContent: '-'
             },
             {
                 data: "tanggal_lahir",
                 name: "tanggal_lahir",
                 searchable: false,
+                defaultContent: '-',
                 render: function(data){
                     return moment(data).format("DD/MM/YYYY");
                 }
@@ -30,10 +32,12 @@ $(document).ready(function () {
             {
                 data: "nis",
                 name: "nis",
-            },
+                defaultContent: '-'
+        },
             {
                 data: "jenis_kelamin",
                 name: "jenis_kelamin",
+                defaultContent: '-',
                 render: function(data){
                     return data == 'm' ? 'Laki-laki' : 'Perempuan';
                 }
@@ -73,6 +77,8 @@ studentForm.on("submit", function (e) {
         data,
     })
         .then(function (res) {
+            studentForm[0].reset();
+            studentForm.find('select').trigger('change');
             utils.refreshTable(table);
             studentModal.modal('hide');
             return utils.showSuccessMessage(res)

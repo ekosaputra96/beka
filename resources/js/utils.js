@@ -12,7 +12,7 @@ export function showErrorMessage(xhr) {
     if (xhr.response.status == 0) return;
 
     let message =
-        xhr.response.statusText ||
+        xhr.response.data.message ||
         "Something Wrong, refresh page (F5) and try again";
 
     if (xhr.response.status === 422 && xhr.response.data.errors) {

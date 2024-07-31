@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
-use App\Services\HelperService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
@@ -22,7 +21,7 @@ class StudentController extends Controller
 
             return DataTables::eloquent($query)
                 ->addColumn('aksi', function ($builder) {
-                    return '<a href="#" class="btn btn-xs btn-primary px-2 edit" title="Edit" data-id="' . $builder->id . '"><i class="fas fa-edit"></i></a> <a href="#" class="btn btn-xs btn-danger px-2 delete" title="Hapus" data-id="' . $builder->id . '"><i class="fas fa-trash-alt"></i></a>';
+                    return '<a href="" class="btn btn-xs btn-primary px-2 edit" title="Edit" data-id="' . $builder->id . '"><i class="fas fa-edit"></i></a> <a href="" class="btn btn-xs btn-danger px-2 delete" title="Hapus" data-id="' . $builder->id . '"><i class="fas fa-trash-alt"></i></a>';
                 })
                 ->rawColumns(['aksi'])
                 ->make();
