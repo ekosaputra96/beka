@@ -21,7 +21,7 @@ class StudentController extends Controller
 
             return DataTables::eloquent($query)
                 ->addColumn('aksi', function ($builder) {
-                    return '<a href="" class="btn btn-xs btn-primary px-2 edit" title="Edit" data-id="' . $builder->id . '"><i class="fas fa-edit"></i></a> <a href="" class="btn btn-xs btn-danger px-2 delete" title="Hapus" data-id="' . $builder->id . '"><i class="fas fa-trash-alt"></i></a>';
+                    return '<a href="" class="btn btn-xs btn-primary px-2 edit-student" title="Edit" data-id="' . $builder->id . '"><i class="fas fa-edit"></i></a> <a href="" class="btn btn-xs btn-danger px-2 delete-student" title="Hapus" data-id="' . $builder->id . '"><i class="fas fa-trash-alt"></i></a>';
                 })
                 ->rawColumns(['aksi'])
                 ->make();
@@ -85,7 +85,7 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        //
+        return response()->json($this->helper->successWrapper('ok', "student fetched successfully", $student));
     }
 
     /**

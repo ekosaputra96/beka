@@ -18,29 +18,29 @@ $(document).ready(function () {
             {
                 data: "nama",
                 name: "nama",
-                defaultContent: '-'
+                defaultContent: "-",
             },
             {
                 data: "tanggal_lahir",
                 name: "tanggal_lahir",
                 searchable: false,
-                defaultContent: '-',
-                render: function(data){
+                defaultContent: "-",
+                render: function (data) {
                     return moment(data).format("DD/MM/YYYY");
-                }
+                },
             },
             {
                 data: "nis",
                 name: "nis",
-                defaultContent: '-'
-        },
+                defaultContent: "-",
+            },
             {
                 data: "jenis_kelamin",
                 name: "jenis_kelamin",
-                defaultContent: '-',
-                render: function(data){
-                    return data == 'm' ? 'Laki-laki' : 'Perempuan';
-                }
+                defaultContent: "-",
+                render: function (data) {
+                    return data == "m" ? "Laki-laki" : "Perempuan";
+                },
             },
             {
                 data: "aksi",
@@ -78,15 +78,30 @@ studentForm.on("submit", function (e) {
     })
         .then(function (res) {
             studentForm[0].reset();
-            studentForm.find('select').trigger('change');
+            studentForm.find("select").trigger("change");
             utils.refreshTable(table);
-            studentModal.modal('hide');
-            return utils.showSuccessMessage(res)
+            studentModal.modal("hide");
+            return utils.showSuccessMessage(res);
         })
         .catch(function (xhr) {
-            return utils.showErrorMessage(xhr)
+            return utils.showErrorMessage(xhr);
         })
         .finally(function () {
             studentModalFooter.prop("disabled", false).html(footerText);
         });
 });
+
+// edit student
+$(document).on('click', '.edit-student', function(e){
+    e.preventDefault();
+    const id = $(this).data('id');
+    Swal.showLoading();
+    axios.get(route('students.edit', {
+        id
+    })).then(function (res){
+        Swal.close();
+        console.log(res);
+    }).catch(function(xhr){
+        return utils.showErrorMessage(xhr);
+    })
+})
