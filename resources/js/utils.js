@@ -9,6 +9,8 @@ export function showSuccessMessage(res) {
 }
 
 export function showErrorMessage(xhr) {
+    if (!xhr.response) return console.error(xhr);
+
     if (xhr.response.status == 0) return;
 
     let message =
@@ -29,4 +31,12 @@ export function showErrorMessage(xhr) {
 
 export function refreshTable(table) {
     table.DataTable().ajax.reload(null, false);
+}
+
+export function showLoading(){
+    Swal.fire({
+        title: 'Sedang diproses...',
+        showConfirmButton: false,
+        icon: 'warning',
+    });
 }

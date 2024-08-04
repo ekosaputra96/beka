@@ -21,7 +21,7 @@ class StudentController extends Controller
 
             return DataTables::eloquent($query)
                 ->addColumn('aksi', function ($builder) {
-                    return '<a href="" class="btn btn-xs btn-primary px-2 edit-student" title="Edit" data-id="' . $builder->id . '"><i class="fas fa-edit"></i></a> <a href="" class="btn btn-xs btn-danger px-2 delete-student" title="Hapus" data-id="' . $builder->id . '"><i class="fas fa-trash-alt"></i></a>';
+                    return '<a href="" class="btn btn-xs btn-primary px-2 edit-student" title="Edit" data-id="' . $builder->id . '"><i class="fas fa-edit"></i></a> <a href="" class="btn btn-xs btn-danger px-2 delete-student" title="Hapus" data-id="' . $builder->id . '" data-name="' . $builder->nama . '"><i class="fas fa-trash-alt"></i></a>';
                 })
                 ->rawColumns(['aksi'])
                 ->make();
@@ -97,7 +97,22 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-        //
+        $data = $request->validate([
+            'nama' => ['required', 'string', 'max:255'],
+            'jenis_kelamin' => ['required', 'in:m,f'],
+            'tanggal_lahir' => ['nullable', 'date'],
+            'nis' => ['nullable', 'string', 'max:255'],
+        ]);
+
+        $data['nama'] = Str::title(Str::lower($data['nama']));
+
+        try {
+            $student->update($data);
+
+            return response()->json($this->helper->successWrapper('Update', "{$student->nama} berhasil diubah", $student));
+        } catch (\Throwable $th) {
+            $this->helper->errorResponse($th);
+        }
     }
 
     /**
@@ -108,6 +123,12 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        //
+        try {
+            $student->delete();
+
+            return response()->json($this->helper->successWrapper('Hapus', "{$student->nama} berhasil dihapus", $student));
+        } catch (\Throwable $th) {
+            $this->helper->errorResponse($th);
+        }
     }
 }
