@@ -56,6 +56,8 @@ $("#create-student").on("click", function () {
     studentModalLabel.text("Tambah Siswa");
     studentModalFooter.text("Simpan");
     studentModal.data("mode", "add");
+    studentForm[0].reset();
+    studentForm.find("select").trigger("change");
     studentModal.modal("show");
 });
 
