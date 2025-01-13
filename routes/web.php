@@ -21,4 +21,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::middleware(['auth'])->prefix('admin')->group(function(){
     Route::resource('students', 'StudentController');
+    Route::resource('teachers', 'TeacherController');
 });
